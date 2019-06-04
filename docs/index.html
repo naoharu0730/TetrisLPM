@@ -2,12 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
 <title>ここにタイトル</title>
 
 <script>
-function calcLPM() {
-    var t = document.getElementById("userTime");
-    var res = document.getElementById("result");
+function calcLPM(tId, rName, lc) {
+    var t = document.getElementById(tId);
+    var res = document.getElementsByName(rName);
     let [h, m, s] = (t.value).split(':');
     
     if (h === undefined) h = '00'
@@ -17,9 +18,9 @@ function calcLPM() {
     var sub = Number(m) * 60 + Number(s);
     if (sub === 0) sub = 1;
 
-    var math = 40 * 60 / sub
+    var math = lc * 60 / sub
     math = math.toFixed(1);
-    res.textContent = math;
+    res[0].textContent = math;
 }
 </script>
 
@@ -30,27 +31,29 @@ function calcLPM() {
         <h1>LPM計算</h1>
     </header>
 
-    <table>
-        <caption><strong>40Line</strong></caption>
-        <tr>
-            <th>
-                <input id="userTime" type="time" value="00:00:00" max="00:10:00" step="1" required/>
-            </th>
-            <th>
-                <button onclick="calcLPM()">計算</button>
-            </th>
-        </tr>
-        <tr>
-            <th>
-                LPM：              
-            </th>
-            <th>
-                <p id="result">???</p>              
-            </th>
-        </tr>
-    </table>
-    <br>
+    <fieldset>
+        <legend>40Line</legend>
+        <p>
+            <label>Time：</label><input id="userTimeFor40" type="time" value="00:00:00" max="00:10:00" step="1" required/>
+            <button onclick="calcLPM('userTimeFor40', 'resultFor40', 40)">LPM計算</button>
+        </p>
+        
+        <p>
+            <label>LPM ：</label><output name="resultFor40">???</output>
+        </p>
+    </fieldset>
 
+    <fieldset>
+            <legend>150Line</legend>
+            <p>
+                <label>Time：</label><input id="userTimeFor150" type="time" value="00:00:00" max="00:30:00" step="1" required/>
+                <button onclick="calcLPM('userTimeFor150', 'resultFor150', 150)">LPM計算</button>
+            </p>
+            
+            <p>
+                <label>LPM ：</label><output name="resultFor150">???</output>
+            </p>
+        </fieldset>
 
 </body>
 </html>
