@@ -6,8 +6,23 @@
 
 <script>
 function calcLPM() {
-    var x = document.getElementById("userTime").value;
-    document.getElementById("result").innerHTML = x;
+    var t = document.getElementById("userTime");
+    var res = document.getElementById("result");
+    let [h, m, s] = (t.value).split(':');
+    alert(`${h}時${m}分${s}秒`);
+    if (h === undefined) h = '00'
+    if (m === undefined) m = '00'
+    if (s === undefined) s = '00'
+    //res.textContent = `${h}時${m}分${s}秒`;
+
+    //var math = (40 * 60) / (60 * Number(m) + Number(s) );
+    var sub = Number(m) * 60 + Number(s);
+    if (sub === 0) sub = 1;
+
+    var math = 40 * 60 / sub
+    res.textContent = math;
+
+  alert(`${h}時${m}分${s}秒`);
 }
 </script>
 
@@ -18,9 +33,9 @@ function calcLPM() {
         <h1>LPM計算</h1>
     </header>
 
-    <input type="time" name="userTime" min="00:00:00" max="00:10:00" step="1" required/>
+    <input id="userTime" type="time" value="00:00:00" max="00:10:00" step="1" required/>
     <button onclick="calcLPM()">計算</button>
-    <p id="result"></p>
+    <p id="result">test</p>
 
 </body>
 </html>
