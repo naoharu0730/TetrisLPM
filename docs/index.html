@@ -1,28 +1,46 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<title>ここにタイトル</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>LPM計算</title>
 
-<script>
-function calcLPM(tId, rName, lc) {
-    var t = document.getElementById(tId);
-    var res = document.getElementsByName(rName);
-    let [h, m, s] = (t.value).split(':');
-    
-    if (h === undefined) h = '00'
-    if (m === undefined) m = '00'
-    if (s === undefined) s = '00'
+    <script>
+        function calcLPM(tId, rName, lc) {
+            var t = document.getElementById(tId);
+            var res = document.getElementsByName(rName);
+            let [h, m, s] = (t.value).split(':');
 
-    var sub = Number(m) * 60 + Number(s);
-    if (sub === 0) sub = 1;
+            if (h === undefined) h = '00'
+            if (m === undefined) m = '00'
+            if (s === undefined) s = '00'
 
-    var math = lc * 60 / sub
-    math = math.toFixed(1);
-    res[0].textContent = math;
-}
-</script>
+            var sub = Number(m) * 60 + Number(s);
+            if (sub === 0) sub = 1;
+
+            var math = lc * 60 / sub
+            math = math.toFixed(1);
+            res[0].textContent = math;
+        }
+
+        function calcTime(LId, r40Name, r150Name) {
+            var l = document.getElementById(LId);
+            var res40 = document.getElementsByName(r40Name);
+            var res150 = document.getElementsByName(r150Name);
+
+            res40[0].textContent = LPMToTime(l.value, 40);
+            res150[0].textContent = LPMToTime(l.value, 150);
+        }
+
+        function LPMToTime(lpm, lc) {
+            var sub = 60 * lc / lpm;
+            var m = Math.floor(sub / 60);
+            var s = Math.floor(sub % 60); 
+            math = ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+            return math;
+        }
+    </script>
 
 </head>
 
@@ -34,26 +52,44 @@ function calcLPM(tId, rName, lc) {
     <fieldset>
         <legend>40Line</legend>
         <p>
-            <label>Time：</label><input id="userTimeFor40" type="time" value="00:00:00" max="00:10:00" step="1" required/>
+            <label>Time：</label><input id="userTimeFor40" type="time" value="00:00:00" max="00:10:00" step="1"
+                required />
             <button onclick="calcLPM('userTimeFor40', 'resultFor40', 40)">LPM計算</button>
         </p>
-        
+
         <p>
             <label>LPM ：</label><output name="resultFor40">???</output>
         </p>
     </fieldset>
 
     <fieldset>
-            <legend>150Line</legend>
-            <p>
-                <label>Time：</label><input id="userTimeFor150" type="time" value="00:00:00" max="00:30:00" step="1" required/>
-                <button onclick="calcLPM('userTimeFor150', 'resultFor150', 150)">LPM計算</button>
-            </p>
-            
-            <p>
-                <label>LPM ：</label><output name="resultFor150">???</output>
-            </p>
-        </fieldset>
+        <legend>150Line(マラソン)</legend>
+        <p>
+            <label>Time：</label><input id="userTimeFor150" type="time" value="00:00:00" max="00:30:00" step="1"
+                required />
+            <button onclick="calcLPM('userTimeFor150', 'resultFor150', 150)">LPM計算</button>
+        </p>
+
+        <p>
+            <label>LPM ：</label><output name="resultFor150">???</output>
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>LPM→時間</legend>
+        <p>
+            <label>LPM ：</label><input id="userLPM" type="number" value="1" min="1" max="99" maxlength="2" style="width:60px" required />
+            <button onclick="calcTime('userLPM', 'resultTimeFor40', 'resultTimeFor150')">時間計算</button>
+        </p>
+
+        <p>
+            <label>40Line：</label><output name="resultTimeFor40">???</output>
+        </p>
+        <p>
+            <label>150Line：</label><output name="resultTimeFor150">???</output>
+        </p>
+    </fieldset>
 
 </body>
+
 </html>
