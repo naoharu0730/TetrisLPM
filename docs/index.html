@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>ここにタイトル</title>
+
+<script>
+const calcLPM = (time) => {
+    return 40 * 60 / 240
+}
+</script>
+
 </head>
 
 <body>
@@ -10,6 +17,14 @@
         <h1>LPM計算</h1>
     </header>
 
-    <input type="time" step="1" required/>
+    <form oninput="result.value = calcLPM(time)">
+        <output name="result">0</output>
+    </form>
+
+    <form oninput="rrr.value = time.value">
+        <output name="rrr">0</output>
+    </form>
+
+    <input type="time" name="time" max="00:10:00" step="1" required/>
 </body>
 </html>
