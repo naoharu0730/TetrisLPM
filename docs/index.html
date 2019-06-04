@@ -5,8 +5,9 @@
 <title>ここにタイトル</title>
 
 <script>
-const calcLPM = (time) => {
-    return 40 * 60 / 240
+function calcLPM() {
+    var x = document.getElementById("userTime").value;
+    document.getElementById("result").innerHTML = x;
 }
 </script>
 
@@ -17,14 +18,9 @@ const calcLPM = (time) => {
         <h1>LPM計算</h1>
     </header>
 
-    <form oninput="result.value = calcLPM(time)">
-        <output name="result">0</output>
-    </form>
+    <input type="time" name="userTime" min="00:00:00" max="00:10:00" step="1" required/>
+    <button onclick="calcLPM()">計算</button>
+    <p id="result"></p>
 
-    <form oninput="rrr.value = time.value">
-        <output name="rrr">0</output>
-    </form>
-
-    <input type="time" name="time" max="00:10:00" step="1" required/>
 </body>
 </html>
